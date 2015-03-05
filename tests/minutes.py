@@ -1,29 +1,36 @@
 from unittest import TestCase
 from bs4 import BeautifulSoup
 from auspol.minutes import HouseOfRepsMinutes
-import time
+from datetime import datetime, date
 
 __author__ = 'Benjamin Roberts'
 
 
 class TestMinutes(TestCase):
-    def test_get_minutes(self):
-        minutes = HouseOfRepsMinutes().get_minutes()
+    def test_get_live_minutes(self):
+        minutes = HouseOfRepsMinutes().get_live_minutes()
         self.assertIsNotNone(minutes)
         self.assertTrue(len(minutes) > 0)
 
         # assert types
         for item in minutes:
             self.assertIn("timestamp", item)
-            self.assertIsInstance(item["timestamp"], time.struct_time)
+            self.assertIsInstance(item["timestamp"], datetime)
             self.assertIn("content", item)
             self.assertTrue(len(item["content"]) > 0)
             self.assertIn("children", item)
             for child in item["children"]:
                 self.assertIn("timestamp", child)
-                self.assertIsInstance(child["timestamp"], time.struct_time)
+                self.assertIsInstance(child["timestamp"], datetime)
                 self.assertIn("content", child)
                 self.assertTrue(len(child["content"]) > 0)
+
+    def test_get_minutes(self):
+        h = HouseOfRepsMinutes()
+        d = date.today()
+        m = h.get_live_minutes()
+        self.assertIsNotNone(h.get_minutes(d))
+        self.assertEqual(m, h.get_minutes(d))
 
     def test__parse_program_item(self):
         self.fail("test not implemented")
@@ -42,7 +49,7 @@ class TestMinutes(TestCase):
 
     def test__parse_time_stamp(self):
         m = HouseOfRepsMinutes()
-        self.assertIsNotNone(m._parse_time_stamp(TIMESTAMP_EXAMPLE))
+        self.assertIsNotNone(m._parse_time_stamp(TIMESTAMP_EXAMPLE, "Thursday, 5 March 2015"))
 
 
 DOCUMENT_ID_EXAMPLE = BeautifulSoup("""

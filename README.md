@@ -8,8 +8,12 @@ A python library for rudimentry Australian Parliment live minutes access.
 ## usage
 ```python
 from auspol.minutes import HouseOfRepsMinutes
+from datetime import date
+
 h = HouseOfRepsMinutes()
-minutes = h.get_minutes()
+minutes = h.get_live_minutes()
+h.get_minutes(date.today())
+
 ```
 
 the minutes object has the following form
@@ -27,6 +31,4 @@ the minutes object has the following form
 ```
 
 ## todo
- + add the federation chamber
- + add date-awareness
  + more useful features
