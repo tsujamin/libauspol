@@ -20,10 +20,10 @@ the minutes object has the following form
 ```json
 [
     {
-        "timestamp": struct_time,
+        "timestamp": datetime,
         "content": "Badly formated string of the current point",
         "children": {
-            "timestamp": struct_time,
+            "timestamp": datetime,
             "content": "Badly formated string of a minutes entry",
         },
     }, ...
