@@ -7,22 +7,22 @@ import time
 __author__ = 'Benjamin Roberts'
 
 
-class HouseOfRepsMinutes:
+class LiveMinutes:
     """
-    This class provides an abstraction of the live House of Representatives
-    draft minutes.
+    This class provides an abstraction of the Live Draft Minutes offered by the Parliament of Australia
 
     #TODO add date support
     """
 
-    __MINUTE_URL = "http://www.aph.gov.au/Parliamentary_Business/Chamber_documents/Live_Minutes"
-
-    def __init__(self):
+    def __init__(self, url):
         """
-        Initialise the Minutes instance
+        Initialise the LiveMinutes instance
+
+        :param url: the live minutes web page to use
         """
         self.document_id = 0
         self.minutes = []
+        self.minute_url = url
 
     def get_minutes(self, flat=False):
         """Queries the APH website
@@ -32,7 +32,7 @@ class HouseOfRepsMinutes:
         ":return: the latest minutes or None
         """
 
-        minute_req = requests.get(HouseOfRepsMinutes.__MINUTE_URL)
+        minute_req = requests.get(self.minute_url)
 
         if minute_req.status_code is not 200:
             return None
@@ -175,4 +175,20 @@ class HouseOfRepsMinutes:
 
         return ret_str
 
-print(HouseOfRepsMinutes().get_minutes(flat=True))
+
+class HouseOfRepsMinutes(LiveMinutes):
+    """Provides an interface to retrieve live House of Representatives minutes
+    """
+    __minute_url = "http://www.aph.gov.au/Parliamentary_Business/Chamber_documents/Live_Minutes"
+
+    def __init__(self):
+        super(HouseOfRepsMinutes, self).__init__(HouseOfRepsMinutes.__minute_url)
+
+
+class FederationChamberMinutes(LiveMinutes):
+    """Provides an interface to retrieve live Federation Chamber minutes
+    """
+    __minute_url = "http://www.aph.gov.au/Parliamentary_Business/Chamber_documents/Live_Federation_Chamber_Minutes"
+
+    def __init__(self):
+        super(FederationChamberMinutes, self).__init__(FederationChamberMinutes.__minute_url)

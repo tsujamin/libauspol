@@ -26,7 +26,7 @@ class TestMinutes(TestCase):
                 self.assertTrue(len(child["content"]) > 0)
 
     def test__parse_program_item(self):
-        self.fail()
+        self.fail("test not implemented")
 
     def test__update_document_id(self):
         m = HouseOfRepsMinutes()
@@ -70,16 +70,16 @@ tracking.</span></p>
 """)
 
 ITEM_CONTENT_EXEMPLAR = """1212
-Mr Abbott(Prime Minister),having amended, by leave, notice No. 3, government business, moved—Thatthis House:
-(1) note that the 8th of March will mark 12 months since Malaysia Airlines Flight
+Mr Abbott (Prime Minister), having amended, by leave, notice No. 3, government business, moved—That this House:
+(1)  note that the 8th of March will mark 12 months since Malaysia Airlines Flight
 MH370 disappeared from radar over the South China Sea;
-(2) extend its heartfelt sympathies to the family and
+(2)  extend its heartfelt sympathies to the family and
 friends of the 239 passengers and crew on board, including six Australian citizens and one Australian resident, who have suffered a
 harrowing 12 months of uncertainty and sorrow;
-(3) acknowledge the hard work and perseverance of all those working on the
+ (3)   acknowledge the hard work and perseverance of all those working on the
 international search and recovery effort, led by Australia, to locate the missing aircraft; and
-(4) note the work of Airservices Australia and
-their counterparts in Malaysia and Indonesia in leading global effortsto enhance aircraft flight
+ (4)   note the work of Airservices Australia and
+their counterparts in Malaysia and Indonesia in leading global efforts to enhance aircraft flight
 tracking."""
 
 TIMESTAMP_EXAMPLE = BeautifulSoup(
